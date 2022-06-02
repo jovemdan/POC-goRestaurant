@@ -23,6 +23,14 @@
       "price": "25.90",
       "available": true,
       "image": "https://storage.googleapis.com/golden-wind/bootcamp-gostack/desafio-food/food3.png"
+    },
+    {
+      "image": "https://hamburgueriadagisa.grandchef.com.br/storage/images/produto/3affddd03e4f91e999f245566470e8ff.png",
+      "name": "hamburguer",
+      "price": "55",
+      "description": "hamburguer de bacon",
+      "available": true,
+      "id": 4
     }
   ]
 }
