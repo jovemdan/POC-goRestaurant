@@ -6,29 +6,36 @@ import { Modal } from '../Modal/index'
 
 import { Form } from './styles'
 
+import { useForm, SubmitHandler } from "react-hook-form"
+
 type ModalAddFoodProps = {
   isOpen: boolean
   setIsOpen: () => void
   handleAddFood: (food: FoodType) => void
 }
-export function ModalAddFood({ handleAddFood, isOpen, setIsOpen }: ModalAddFoodProps) {
-  const formRef = useRef(null)
 
-  async function handleSubmit(data: FoodType) {
-    handleAddFood(data)
-    setIsOpen()
-  }
+type Inputs = {
+  image: string,
+  name: string,
+  price: string,
+  description: string,
+}
+export function ModalAddFood({ handleAddFood, isOpen, setIsOpen }: ModalAddFoodProps) {
+
+  const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>()
+  const onSubmit: SubmitHandler<FoodType> = data => handleAddFood(data)
 
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-      <Form ref={formRef} onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <h1>Novo Prato</h1>
-        <Input name="image" placeholder="Cole o link aqui" />
+        <div className="container">
+          <input name="image" placeholder="Cole o link aqui" {...register("image")} />
+          <input name="name" placeholder="Ex: Moda Italiana" {...register("name")} />
+          <input name="price" placeholder="Ex: 19.90" {...register("price")} />
+          <input name="description" placeholder="Descrição" {...register("description")} />
+        </div>
 
-        <Input name="name" placeholder="Ex: Moda Italiana" />
-        <Input name="price" placeholder="Ex: 19.90" />
-
-        <Input name="description" placeholder="Descrição" />
         <button type="submit" data-testid="add-food-button">
           <p className="text">Adicionar Prato</p>
           <div className="icon">
