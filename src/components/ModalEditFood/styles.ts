@@ -40,4 +40,28 @@ export const Form = styled(Unform)`
       margin: 0 auto;
     }
   }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:1rem;
+  }
+  input {
+    flex: 1;
+    background: transparent;
+    border: 0;
+    color: #b7b7cc;
+    background: #fff;
+
+    border-radius: 8px;
+    padding: 18px 24px;
+    width: 100%;
+    font-size: 16px;
+
+    &::placeholder {
+      color: #b7b7cc;
+    }
+  }
 `
