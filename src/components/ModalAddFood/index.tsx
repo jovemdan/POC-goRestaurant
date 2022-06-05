@@ -23,7 +23,12 @@ type Inputs = {
 export function ModalAddFood({ handleAddFood, isOpen, setIsOpen }: ModalAddFoodProps) {
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>()
-  const onSubmit: SubmitHandler<FoodType> = data => handleAddFood(data)
+  const onSubmit: SubmitHandler<FoodType> = data => {
+    handleAddFood(data)
+    setIsOpen()
+  }
+
+  console.log(watch("name"))
 
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
