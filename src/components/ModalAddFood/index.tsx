@@ -28,8 +28,6 @@ export function ModalAddFood({ handleAddFood, isOpen, setIsOpen }: ModalAddFoodP
     setIsOpen()
   }
 
-  console.log(watch("name"))
-
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
       <Form onSubmit={handleSubmit(onSubmit)}>
