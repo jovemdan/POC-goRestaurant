@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { FiCheckSquare } from '../../../node_modules/react-icons/fi/index'
 import { FoodType } from '../Food/index'
@@ -20,29 +20,17 @@ type ModalEditedProps = {
   handleUpdateFood: (food: FoodType) => void
 }
 export function ModalEditFood({ isOpen, setIsOpen, editingFood, handleUpdateFood }: ModalEditedProps) {
-  // const formRef = useRef(null)
-
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>({
-    defaultValues: {
-      image: editingFood.image,
-      name: editingFood.name,
-      price: editingFood.price,
-      description: editingFood.description,
-
-    }
-  })
+  const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<Inputs>()
   const onSubmit: SubmitHandler<FoodType> = data => {
     handleUpdateFood(data)
     setIsOpen()
   }
-
-  console.log(editingFood)
-  // const formRef = useRef(null)
-  // async function handleSubmit(data: FoodType) {
-  //   handleUpdateFood(data)
-  //   setIsOpen()
-  // }
-
+  useEffect(() => {
+    setValue("image", editingFood.image)
+    setValue("name", editingFood.name)
+    setValue("price", editingFood.price)
+    setValue("description", editingFood.description)
+  })
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
       <Form onSubmit={handleSubmit(onSubmit)} initialData={editingFood}>
