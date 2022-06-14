@@ -30,11 +30,13 @@ export function ModalEditFood({ isOpen, setIsOpen, editingFood, handleUpdateFood
     setValue("name", editingFood.name)
     setValue("price", editingFood.price)
     setValue("description", editingFood.description)
-  })
+  }, [editingFood, setValue])
+
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
       <Form onSubmit={handleSubmit(onSubmit)} initialData={editingFood}>
         <h1>Editar Prato</h1>
+
         <div className="container">
           <input name="image" placeholder="Cole o link aqui" {...register("image")} />
           <input name="name" placeholder="Ex: Moda Italiana" {...register("name")} />
