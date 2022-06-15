@@ -49,6 +49,7 @@ export const Form = styled(Unform)`
     align-items: center;
     gap:1rem;
   }
+
   input {
     flex: 1;
     background: transparent;
@@ -65,6 +66,13 @@ export const Form = styled(Unform)`
       color: #b7b7cc;
     }
   }
+
+  div.container .invalid-new-food {
+    color:#c72828;
+    font-size:0.8rem;
+    align-self: flex-start;
+  }
+
 `
 
 

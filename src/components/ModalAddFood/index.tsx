@@ -7,6 +7,8 @@ import { Modal } from '../Modal/index'
 import { Form } from './styles'
 
 import { useForm, SubmitHandler } from "react-hook-form"
+import * as Yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 type ModalAddFoodProps = {
   isOpen: boolean
@@ -22,7 +24,17 @@ type Inputs = {
 }
 export function ModalAddFood({ handleAddFood, isOpen, setIsOpen }: ModalAddFoodProps) {
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>()
+  const validationSchema = Yup.object().shape({
+    image: Yup.string().required('Imagem é obrigatório'),
+    name: Yup.string().required('Nome é obrigatório'),
+    price: Yup.string().required('Preço é obrigatório'),
+    description: Yup.string().required('Descrição é obrigatório'),
+  })
+
+  const formOptions = { resolver: yupResolver(validationSchema) }
+  const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>(formOptions)
+  console.log(errors)
+
   const onSubmit: SubmitHandler<FoodType> = data => {
     handleAddFood(data)
     setIsOpen()
@@ -34,9 +46,13 @@ export function ModalAddFood({ handleAddFood, isOpen, setIsOpen }: ModalAddFoodP
         <h1>Novo Prato</h1>
         <div className="container">
           <input name="image" placeholder="Cole o link aqui" {...register("image")} />
+          <div className="invalid-new-food">{errors.image?.message}</div>
           <input name="name" placeholder="Ex: Moda Italiana" {...register("name")} />
+          <div className="invalid-new-food">{errors.name?.message}</div>
           <input name="price" placeholder="Ex: 19.90" {...register("price")} />
+          <div className="invalid-new-food">{errors.price?.message}</div>
           <input name="description" placeholder="Descrição" {...register("description")} />
+          <div className="invalid-new-food">{errors.description?.message}</div>
         </div>
 
         <button type="submit" data-testid="add-food-button">
