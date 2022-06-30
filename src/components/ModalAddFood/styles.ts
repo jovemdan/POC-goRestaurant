@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { Form as Unform } from '@unform/web'
+import styled from "styled-components";
+import { Form as Unform } from "@unform/web";
 
 export const Form = styled(Unform)`
   padding: 48px 40px;
@@ -47,32 +47,12 @@ export const Form = styled(Unform)`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap:1rem;
-  }
-
-  input {
-    flex: 1;
-    background: transparent;
-    border: 0;
-    color: #b7b7cc;
-    background: #fff;
-
-    border-radius: 8px;
-    padding: 18px 24px;
-    width: 100%;
-    font-size: 16px;
-
-    &::placeholder {
-      color: #b7b7cc;
-    }
+    gap: 1rem;
   }
 
   div.container .invalid-new-food {
-    color:#c72828;
-    font-size:0.8rem;
+    color: #c72828;
+    font-size: 0.8rem;
     align-self: flex-start;
   }
-
-`
-
-
+`;

@@ -1,59 +1,52 @@
-import {
-  useEffect,
-  useRef,
-  useState,
-  useCallback,
-} from 'react'
+import { useEffect, useRef, useState, useCallback } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
+import { Container } from "./styles";
 
+type InputsProps = {
+  name: "image" | "name" | "price" | "description";
+  placeholder: string;
+};
 
-import { Container } from './styles'
+type Inputs = {
+  image: string;
+  name: string;
+  price: string;
+  description: string;
+};
 
-const Input = ({ name, ...rest }: { name: string, [x: string]: any }) => {
-  const inputRef = useRef<HTMLInputElement>(null)
+const Input = ({ name, placeholder, ...rest }: InputsProps) => {
+  const { register, watch } = useForm<Inputs>();
+  console.log(watch("image"));
 
-  const [isFocused, setIsFocused] = useState(false)
-  const [isFilled, setIsFilled] = useState(false)
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  //const { fieldName, defaultValue, registerField } = useField(name)
-
-  //todo usar Lib
-  const teste = {
-    fieldName: '',
-    defaultValue: '',
-    registerField: ({ name, ref, path }) => ''
-  }
-  const { fieldName, defaultValue, registerField } = teste
+  const [isFocused, setIsFocused] = useState(false);
+  const [isFilled, setIsFilled] = useState(false);
 
   const handleInputFocus = useCallback(() => {
-    setIsFocused(true)
-  }, [])
+    setIsFocused(true);
+  }, []);
 
   const handleInputBlur = useCallback(() => {
-    setIsFocused(false)
+    setIsFocused(false);
 
-    setIsFilled(!!inputRef.current?.value)
-  }, [])
-
-  useEffect(() => {
-    registerField({
-      name: fieldName,
-      ref: inputRef.current,
-      path: 'value',
-    })
-  }, [fieldName, registerField])
+    setIsFilled(!!inputRef.current?.value);
+  }, []);
 
   return (
     <Container isFilled={isFilled} isFocused={isFocused}>
       <input
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
-        defaultValue={defaultValue}
-        ref={inputRef}
+        placeholder={placeholder}
+        {...register(name)}
         {...rest}
       />
     </Container>
-  )
-}
+  );
+};
 
-export default Input
+export default Input;
