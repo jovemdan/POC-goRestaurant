@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FoodType } from "../Food";
+import { Forms } from "./styles";
 
 type FormProps = {
   children: JSX.Element[];
@@ -13,7 +14,7 @@ export default function Form({ defaultValues, children, onSubmit }: FormProps) {
   const { handleSubmit } = methods;
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <Forms onSubmit={handleSubmit(onSubmit)}>
       {React.Children.map(children, (child) => {
         return child.props.name
           ? React.createElement(child.type, {
@@ -25,6 +26,6 @@ export default function Form({ defaultValues, children, onSubmit }: FormProps) {
             })
           : child;
       })}
-    </form>
+    </Forms>
   );
 }
