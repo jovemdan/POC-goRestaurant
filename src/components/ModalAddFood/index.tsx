@@ -3,12 +3,10 @@ import { FiCheckSquare } from "../../../node_modules/react-icons/fi/index";
 import { FoodType } from "../Food/index";
 import Input from "../Input/index";
 import { Modal } from "../Modal/index";
-
-import { Form } from "./styles";
-
 import { useForm, SubmitHandler } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import Form from "../Form";
 
 type ModalAddFoodProps = {
   isOpen: boolean;
@@ -41,17 +39,16 @@ export function ModalAddFood({
     watch,
     formState: { errors },
   } = useForm<Inputs>(formOptions);
-  console.log(errors);
 
   const onSubmit: SubmitHandler<FoodType> = (data) => {
-    console.log(data);
+    console.log("data", data);
     handleAddFood(data);
     setIsOpen();
   };
 
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={onSubmit}>
         <h1>Novo Prato</h1>
         <div className='container'>
           <Input name='image' placeholder='Cole o link aqui' />

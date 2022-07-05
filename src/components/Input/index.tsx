@@ -1,5 +1,12 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import {
+  useForm,
+  SubmitHandler,
+  UseFormRegister,
+  RegisterOptions,
+  UseFormRegisterReturn,
+  FieldValues,
+} from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -8,6 +15,11 @@ import { Container } from "./styles";
 type InputsProps = {
   name: "image" | "name" | "price" | "description";
   placeholder: string;
+  // register?: UseFormRegister<Inputs>;
+
+  //register: (name: string) => UseFormRegisterReturn;
+  register?: any;
+  // (name: string) => UseFormRegister<FieldValues>;
 };
 
 type Inputs = {
@@ -17,10 +29,10 @@ type Inputs = {
   description: string;
 };
 
-const Input = ({ name, placeholder, ...rest }: InputsProps) => {
-  const { register, watch } = useForm<Inputs>();
-  console.log(watch("image"));
-
+const Input = ({ name, placeholder, register, ...rest }: InputsProps) => {
+  const { watch } = useForm();
+  // console.log(name);
+  // console.log(watch(name));
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [isFocused, setIsFocused] = useState(false);
@@ -42,7 +54,7 @@ const Input = ({ name, placeholder, ...rest }: InputsProps) => {
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
         placeholder={placeholder}
-        {...register(name)}
+        ref={register}
         {...rest}
       />
     </Container>
